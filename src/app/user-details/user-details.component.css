@@ -1,0 +1,10 @@
+tr:nth-child(even) {
+    background-color: #e7f3d3;
+}
+.thead{
+    color: rgb(49, 14, 14);
+    background-color: #bdbea5;
+}
+table{
+    font-size: 12px;
+}

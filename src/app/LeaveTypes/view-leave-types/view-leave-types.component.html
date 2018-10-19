@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+    <th>Id</th>
+    <th>Type</th>
+    <th>Allocated days</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let leave of leaveType">
+      <!-- <p>{{leave | json}}</p> -->
+      <td>{{leave.id}}</td>
+      <td>{{leave.type}}</td>
+      <td>{{leave.daysAlloc}}</td>
+    </tr>
+  </tbody>
+
+</table>

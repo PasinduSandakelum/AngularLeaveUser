@@ -1,0 +1,170 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header bg-primary">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col col-sm-10 col-md-10">
+            <h4><i class="fa fa-vcard-o"> &nbsp;
+              </i>View User Details</h4>
+          </div>
+          <div class="col col-sm-2 col-md-2">
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#userForm">
+              <i class="fa fa-user-plus"></i> &nbsp; Add User
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="col col-sm-12 col-md-12">
+          <table class="table">
+            <thead class="thead">
+              <th>User ID</th>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Joined Date (dd/mm/yyyy)</th>
+              <th>Role ID</th>
+              <th>Department ID</th>
+              <th>Service Period(Years)</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let userfetch of users">
+                <td>{{userfetch.id}}</td>
+                <td>{{userfetch.userName}}</td>
+                <td>{{userfetch.email}}</td>
+                <td>{{userfetch.password}}</td>
+                <td>{{userfetch.firstName}}</td>
+                <td>{{userfetch.lastName}}</td>
+                <td>{{userfetch.joinDate | date:'dd/mm/yyyy'}}</td>
+                <td>{{userfetch.servicePeriod}}</td>
+                <td>{{userfetch.roleId}}</td>
+                <td>{{userfetch.departmentId}}</td>
+                <td>
+                  <i style="font-size:24px; color: rgb(33, 9, 139);" class="fa fa-edit" data-toggle="modal" data-target="#userForm">
+                  </i>&nbsp;&nbsp;
+                  <i style="font-size:24px; color: rgb(158, 9, 9);" class="fa fa-trash" data-toggle="modal" data-target="#confirm">
+                  </i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Confirm Box-->
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLongTitle">Confirm first</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>Are you sure You want to delete ?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Yes</button>
+        <button type="button" class="btn btn-primary">No</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Form Modal -->
+<div class="modal fade" id="userForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <pre>{{user | json}}</pre>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="userId">User ID</label>
+              <input type="text" class="form-control" id="userId" [ngModel]="user.id" name="id" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="FirstName" name="firstName"
+                [(ngModel)]="user.firstName">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="LastName" name="lastName" [(ngModel)]="user.lastName">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="userName">User Name</label>
+              <input type="text" class="form-control" id="userName" placeholder="UserName" name="userName" [(ngModel)]="user.userName">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="joinDate">Join Date</label>
+              <!-- <input type="date" class="form-control" id="joinDate" placeholder="Select.." name="joinDate"
+                [(ngModel)]="user.joinDate"> -->
+
+                <input type="date" name="joinDate" [(ngModel)] ="user.joinDate">
+                
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="userEmail">Email</label>
+              <input type="email" class="form-control" id="userEmail" placeholder="example@gmail.com" name="email"
+                [(ngModel)]="user.email">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="userPassword">Password</label>
+              <input type="text" class="form-control" id="userPassword" placeholder="Password" name="password"
+                [(ngModel)]="user.password">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="userRole">Role</label>
+              <select id="userRole" class="form-control" name="roleId" [(ngModel)]="user.roleId">
+                <!-- <option selected>Choose...</option> -->
+                <option *ngFor="let role of roles" value={{role.id}}>
+                  {{role.roleName}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="userDepartment">Department</label>
+              <select id="userDepartment" class="form-control" name="departmentId" [(ngModel)]="user.departmentId">
+                <option *ngFor="let dept of depts" value={{dept.id}}>
+                  {{dept.departmentName}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
